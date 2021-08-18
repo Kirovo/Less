@@ -39,58 +39,49 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var sharp_1 = __importDefault(require("sharp"));
+//Importing modules for working on images
+var fileResize_1 = __importDefault(require("./fileResize"));
 var fs_1 = require("fs");
-//Middleware for generating resized images 
+var path_1 = __importDefault(require("path"));
+//Middleware for generating resized images
 var reader = function (req, res, next) {
     //Assigning request properties to variables
     var name = req.query.name;
     var width = parseInt(req.query.width);
     var height = parseInt(req.query.height);
     //Building an output file with its own name
-    var pathOutput = './images/full/sized/' + width + ',' + height + ',' + name + '.jpg';
-    //Functon for generating a resized image with the previous properties to the defined output
-    var fileResize = function (name, width, height) { return __awaiter(void 0, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: 
-                //Using sharp and its structure
-                return [4 /*yield*/, sharp_1.default('./images/full/' + name + '.jpg')
-                        .resize(width, height)
-                        .toFile(pathOutput)
-                        .catch(function (err) {
-                        throw err;
-                    })];
-                case 1:
-                    //Using sharp and its structure
-                    _a.sent();
-                    return [2 /*return*/];
-            }
-        });
-    }); };
+    var pathOutput = path_1.default.resolve('images/full/sized/' + width + ',' + height + ',' + name + '.jpg');
     //Function wich allow processing only if the generated image already exists
     var toProcess = function (pathTo) { return __awaiter(void 0, void 0, void 0, function () {
-        var files, err_1;
+        var err_1, err_2;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    _a.trys.push([0, 2, , 6]);
+                    _a.trys.push([0, 2, , 7]);
+                    //We try to read if the image already exists
                     return [4 /*yield*/, fs_1.promises.readFile(pathTo)];
                 case 1:
-                    files = _a.sent();
-                    next();
-                    return [3 /*break*/, 6];
-                case 2:
-                    err_1 = _a.sent();
-                    if (!(err_1.code == 'ENOENT')) return [3 /*break*/, 4];
-                    return [4 /*yield*/, fileResize(name, width, height)];
-                case 3:
+                    //We try to read if the image already exists
                     _a.sent();
                     next();
-                    return [3 /*break*/, 5];
-                case 4: throw err_1;
-                case 5: return [3 /*break*/, 6];
-                case 6: return [2 /*return*/];
+                    return [3 /*break*/, 7];
+                case 2:
+                    err_1 = _a.sent();
+                    if (!(err_1.code == 'ENOENT')) return [3 /*break*/, 6];
+                    _a.label = 3;
+                case 3:
+                    _a.trys.push([3, 5, , 6]);
+                    return [4 /*yield*/, fileResize_1.default(name, width, height, pathOutput)];
+                case 4:
+                    _a.sent();
+                    next();
+                    return [3 /*break*/, 6];
+                case 5:
+                    err_2 = _a.sent();
+                    console.log(err_2);
+                    return [3 /*break*/, 6];
+                case 6: return [3 /*break*/, 7];
+                case 7: return [2 /*return*/];
             }
         });
     }); };

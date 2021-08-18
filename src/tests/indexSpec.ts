@@ -2,8 +2,9 @@
 
 //Importing modules for testing
 import supertest from 'supertest';
-import sharp from 'sharp';
+import fileResize from '../utilities/fileResize';
 import app from '../index';
+import path from 'path';
 
 //Initializing supertest
 const request = supertest(app);
@@ -20,19 +21,28 @@ describe('Testing all functionalities', () => {
 		});
 	});
 	describe('Testing functionality used in the middleware', () => {
-		it('Resizing functionality "sharp" do not process without an existing file', async () => {
+		it('Resizing functionality "fileResize" do not process without an existing file', async () => {
 			try {
-				await sharp('./images/full/fjood.jpg')
-					.resize(500, 500)
-					.toFile('./images/full/sized/500,500,fjord.jpg');
+				await fileResize(
+					'fjood',
+					500,
+					500,
+					path.resolve('images/full/sized/500,500,fjood.jpg')
+				);
 			} catch (err) {
-				expect(err.message).toEqual('Input file is missing');
+				expect(err).toEqual(
+					'Error : Chosen name "fjood" do not exist. You can use by default: encenadaport, fjord, icelandwaterfall, palmtunnel, santamonica as valid names'
+				);
 			}
 		});
-		it('Resizing functionality "sharp" do process with an existing file', async () => {
-			let resize = await sharp('./images/full/fjord.jpg')
-				.resize(500, 500)
-				.toFile('./images/full/sized/500,500,fjord.jpg');
+		it('Resizing functionality "fileResize" do process with an existing file', async () => {
+			let resize = await fileResize(
+				'fjord',
+				500,
+				500,
+				path.resolve('images/full/sized/500,500,fjord.jpg')
+			);
+			//console.log(resize)
 			expect(resize).not.toBeNull();
 		});
 	});

@@ -1,12 +1,12 @@
 {
   "root": true,
-  "parser": "@typescript-eslint/parser",
+  "parser": "@babel/eslint-parser",
   "plugins": [
-    "@typescript-eslint"
+    "@typescript-eslint/eslint-plugin","@typescript-eslint/eslint-plugin-tslint","eslint-plugin-react","eslint-plugin-prettier"
   ],
-  "extends": [
+    "extends": [
     "eslint:recommended",
-    "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended"
-  ]
+    "plugin:react/recommended"
+  ],
+
 }

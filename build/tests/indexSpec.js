@@ -42,8 +42,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 //Importing modules for testing
 var supertest_1 = __importDefault(require("supertest"));
-var sharp_1 = __importDefault(require("sharp"));
+var fileResize_1 = __importDefault(require("../utilities/fileResize"));
 var index_1 = __importDefault(require("../index"));
+var path_1 = __importDefault(require("path"));
 //Initializing supertest
 var request = supertest_1.default(index_1.default);
 //Testing endpoint and Resizing functionality
@@ -64,35 +65,32 @@ describe('Testing all functionalities', function () {
         }); });
     });
     describe('Testing functionality used in the middleware', function () {
-        it('Resizing functionality "sharp" do not process without an existing file', function () { return __awaiter(void 0, void 0, void 0, function () {
+        it('Resizing functionality "fileResize" do not process without an existing file', function () { return __awaiter(void 0, void 0, void 0, function () {
             var err_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
-                        return [4 /*yield*/, sharp_1.default('./images/full/fjood.jpg')
-                                .resize(500, 500)
-                                .toFile('./images/full/sized/500,500,fjord.jpg')];
+                        return [4 /*yield*/, fileResize_1.default('fjood', 500, 500, path_1.default.resolve('images/full/sized/500,500,fjood.jpg'))];
                     case 1:
                         _a.sent();
                         return [3 /*break*/, 3];
                     case 2:
                         err_1 = _a.sent();
-                        expect(err_1.message).toEqual('Input file is missing');
+                        expect(err_1).toEqual('Error : Chosen name "fjood" do not exist. You can use by default: encenadaport, fjord, icelandwaterfall, palmtunnel, santamonica as valid names');
                         return [3 /*break*/, 3];
                     case 3: return [2 /*return*/];
                 }
             });
         }); });
-        it('Resizing functionality "sharp" do process with an existing file', function () { return __awaiter(void 0, void 0, void 0, function () {
+        it('Resizing functionality "fileResize" do process with an existing file', function () { return __awaiter(void 0, void 0, void 0, function () {
             var resize;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, sharp_1.default('./images/full/fjord.jpg')
-                            .resize(500, 500)
-                            .toFile('./images/full/sized/500,500,fjord.jpg')];
+                    case 0: return [4 /*yield*/, fileResize_1.default('fjord', 500, 500, path_1.default.resolve('images/full/sized/500,500,fjord.jpg'))];
                     case 1:
                         resize = _a.sent();
+                        //console.log(resize)
                         expect(resize).not.toBeNull();
                         return [2 /*return*/];
                 }

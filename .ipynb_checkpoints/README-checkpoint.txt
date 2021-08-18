@@ -11,13 +11,8 @@ For the build file:
 
 For both intialisation of the server you will need to add the following kind of end points:
 
-    /api/images?name=fjord&width=500&height=500
+=>   http://localhost:3000/api/images?name=fjord&width=500&height=500
 
-To access input images:
-    /images/full/
-
-To access output images:
-    /images/full/sized/
 
 For more informations, scripts in "package.json" are written this way:
 
