@@ -32,7 +32,7 @@ const reader = (
 					await fileResize(name, width, height, pathOutput);
 					next();
 				} catch (err) {
-                    next(err);
+					next(err);
 				}
 			}
 		}

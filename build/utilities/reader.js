@@ -78,7 +78,7 @@ var reader = function (req, res, next) {
                     return [3 /*break*/, 6];
                 case 5:
                     err_2 = _a.sent();
-                    console.log(err_2);
+                    next(err_2);
                     return [3 /*break*/, 6];
                 case 6: return [3 /*break*/, 7];
                 case 7: return [2 /*return*/];
