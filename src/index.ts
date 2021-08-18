@@ -22,6 +22,7 @@ const port = 3000;
 
 //Display the picture (name) with the needed dimensions specified in the url (width, height)
 app.get('/api/images', reader, (req: Request, res: Response) => {
+
 	res.sendFile(
 		path.resolve('images/full/sized') +
 			'/' +
@@ -32,6 +33,8 @@ app.get('/api/images', reader, (req: Request, res: Response) => {
 			req.query.name +
 			'.jpg'
 	);
+    
+
 });
 
 //Print the port when the server is ready to use

@@ -31,7 +31,7 @@ describe('Testing all functionalities', () => {
 				);
 			} catch (err) {
 				expect(err).toEqual(
-					'Error : Chosen name "fjood" do not exist. You can use by default: encenadaport, fjord, icelandwaterfall, palmtunnel, santamonica as valid names'
+					'Error : Chosen name "fjood" or format do not exist. You can use by default: encenadaport, fjord, icelandwaterfall, palmtunnel, santamonica as valid names and numbers to define height and width'
 				);
 			}
 		});

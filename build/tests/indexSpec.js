@@ -77,7 +77,7 @@ describe('Testing all functionalities', function () {
                         return [3 /*break*/, 3];
                     case 2:
                         err_1 = _a.sent();
-                        expect(err_1).toEqual('Error : Chosen name "fjood" do not exist. You can use by default: encenadaport, fjord, icelandwaterfall, palmtunnel, santamonica as valid names');
+                        expect(err_1).toEqual('Error : Chosen name "fjood" or format do not exist. You can use by default: encenadaport, fjord, icelandwaterfall, palmtunnel, santamonica as valid names and numbers to define height and width');
                         return [3 /*break*/, 3];
                     case 3: return [2 /*return*/];
                 }
